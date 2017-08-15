@@ -6,31 +6,27 @@ App::uses('Controller', 'Controller');
  * Application Controller
  */
 class AppController extends Controller {
-    
+
+    // public $helpers = array('Html', 'Form', 'Session', 'Image', 'Text', 'Breadcrumb', 'BootstrapForm', 'ScriptCombiner', 'Language');
+    public $helpers = array('Html', 'Form', 'BootstrapForm');
+
     public $components = array(
         'Flash',
         'Auth' => array(
-            'autoRedirect' => true,
-            'loginRedirect' => array('admin' => false, 'controller' => 'users', 'action' => 'dashboard'),
-            'logoutRedirect' => array('admin' => false, 'controller' => 'users', 'action' => 'login'),
-            'fields' => array(
-                'username' => 'username',
-                'password' => 'password'
-            ),
-            'authenticate' => array(
-                'Form' => array(
-                    'userModel' => 'User',
-                    'fields' => array(
-                        'username' => 'username',
-                        'password' => 'password'
-                    )
-                ),
-            ),
+            'loginRedirect' => array('controller' => 'posts', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
         )
     );
 
     public function beforeFilter(){
         $this->set_auth();
+        
+        // $this->Tools->run($this->request);
+
+        $this->model = Inflector::classify($this->params['controller']);
+        $this->plugin = Inflector::classify($this->params['plugin']);
+        $this->set("model", $this->model);
+        $this->set("plugin", $this->plugin);
     }
 
     protected function set_auth(){

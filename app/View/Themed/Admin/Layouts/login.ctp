@@ -21,12 +21,17 @@
   <body>
 	  <div id="login-page">
 	  	<div class="container">
-		      <form class="form-login" action="index.html">
+		      <!-- <form class="form-login" method="post"> -->
+			  <?php echo $this->BootstrapForm->create('User', array('class' => 'form-login')); ?>
 		        <h2 class="form-login-heading">Loja Despojada</h2>
 		        <div class="login-wrap">
-		            <input type="text" class="form-control" placeholder="Usuario" autofocus>
+					<?php echo $this->BootstrapForm->input('username'); ?>
+                	<?php echo $this->BootstrapForm->input('password'); ?>
+
+		            <!-- <input type="text" name="username" class="form-control" placeholder="Usuario" autofocus>
 		            <br>
-		            <input type="password" class="form-control" placeholder="Senha">
+		            <input type="password" name="passsowrd" class="form-control" placeholder="Senha"> -->
+					
 		            <label class="checkbox">
 		                <span class="pull-right">
 		                    <a data-toggle="modal" href="login.html#myModal"> Esqueceu sua senha?</a>
